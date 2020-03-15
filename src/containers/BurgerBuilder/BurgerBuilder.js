@@ -16,14 +16,28 @@ class BurgerBuilder extends Component{
             meat: 0,
             cheese: 0, 
         },
+        purshasable : false,
         totalPrice: 0
     }
 
+    updatePurshasable(ingridientsUpdated){
+        const ingredients = {...ingridientsUpdated};
+        const temp = Object.keys(ingredients)
+        .map(key => {
+            return ingredients[key];
+        });
+        console.log(temp);
+        const sum = temp.reduce((sum, val) => sum + val,0);
+        console.log(sum);
+        this.setState({purshasable: sum > 0});
+
+    }
     addIngredientHandler = (type) => {
         const updatedIngredients = {...this.state.ingredients};
         updatedIngredients[type] ++;
         const newPrice = this.state.totalPrice + INGREDIENTS_PRICES[type];
         this.setState({ingredients: updatedIngredients, totalPrice: newPrice});
+        this.updatePurshasable(updatedIngredients);
     }
 
     removeIngredientHandler = (type) => {
@@ -34,6 +48,7 @@ class BurgerBuilder extends Component{
         updatedIngredients[type] --;
         const newPrice = this.state.totalPrice - INGREDIENTS_PRICES[type];
         this.setState({ingredients: updatedIngredients, totalPrice: newPrice});
+        this.updatePurshasable(updatedIngredients);
     }
     render(){
         const disabledInfo = {...this.state.ingredients};
@@ -49,7 +64,8 @@ class BurgerBuilder extends Component{
                 ingredientAdded = {this.addIngredientHandler}
                 ingredientRemoved = {this.removeIngredientHandler}
                 disabledInfo = {disabledInfo}
-                price ={this.state.totalPrice}/>
+                price ={this.state.totalPrice}
+                purshasable ={this.state.purshasable}/>
             </Aux>
         )
     }

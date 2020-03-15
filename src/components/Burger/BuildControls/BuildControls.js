@@ -17,6 +17,7 @@ function BuildControls(props) {
                 added={() => props.ingredientAdded(ctr.type)}
                 removed={() => props.ingredientRemoved(ctr.type)}
                 disabled = {props.disabledInfo[ctr.type]}/>)}
+                <button className={classes.OrderButton} disabled = {!props.purshasable}>Order Now</button>
         </div>
     )
 }
