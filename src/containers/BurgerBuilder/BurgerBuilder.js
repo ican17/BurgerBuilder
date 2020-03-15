@@ -19,9 +19,13 @@ class BurgerBuilder extends Component{
             cheese: 0, 
         },
         purshasable : false,
+        purshasing : false,
         totalPrice: 0
     }
 
+    purshaseHandler = ()=>{
+        this.setState({purshasing: true});
+    }
     updatePurshasable(ingridientsUpdated){
         const ingredients = {...ingridientsUpdated};
         const temp = Object.keys(ingredients)
@@ -61,7 +65,7 @@ class BurgerBuilder extends Component{
         }
         return (
             <Aux>
-                <Modal>
+                <Modal show={this.state.purshasing}>
                     <OrderSummary ingredients ={this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients = {this.state.ingredients}/>
@@ -70,7 +74,8 @@ class BurgerBuilder extends Component{
                 ingredientRemoved = {this.removeIngredientHandler}
                 disabledInfo = {disabledInfo}
                 price ={this.state.totalPrice}
-                purshasable ={this.state.purshasable}/>
+                purshasable ={this.state.purshasable}
+                order = {this.purshaseHandler}/>
             </Aux>
         )
     }
