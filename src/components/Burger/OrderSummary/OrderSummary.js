@@ -1,5 +1,6 @@
 import React from 'react';
 import Aux from '../../../hoc/Auxilary';
+import Button from '../../UI/Button/Button';
 
 function OrderSummary(props) {
     const listIngredients = [];
@@ -16,6 +17,8 @@ function OrderSummary(props) {
                 {listIngredients}
             </ul>
             <p>Would you like to continue and purshase it?</p>
+            <Button btnType="Danger" clicked={props.purshaseCanceled}>CANCEL</Button>
+            <Button btnType="Success" clicked= {props.purshaseContinue}>CONTINUE</Button>
         </Aux>
     )
 }

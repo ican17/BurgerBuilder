@@ -58,6 +58,10 @@ class BurgerBuilder extends Component{
     closePurshaseHandler = ()=>{
         this.setState({purshasing: false});
     }
+
+    continuePurshaseHandler = () => {
+        alert('Continue !!');
+    }
     render(){
         const disabledInfo = {...this.state.ingredients};
         for (const key in disabledInfo) {
@@ -68,7 +72,10 @@ class BurgerBuilder extends Component{
         return (
             <Aux>
                 <Modal show={this.state.purshasing} closeModal = {this.closePurshaseHandler}>
-                    <OrderSummary ingredients ={this.state.ingredients}/>
+                    <OrderSummary 
+                    ingredients ={this.state.ingredients}
+                    purshaseCanceled={this.closePurshaseHandler}
+                    purshaseContinue={this.continuePurshaseHandler}/>
                 </Modal>
                 <Burger ingredients = {this.state.ingredients}/>
                 <BuildControls
