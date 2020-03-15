@@ -32,9 +32,7 @@ class BurgerBuilder extends Component{
         .map(key => {
             return ingredients[key];
         });
-        console.log(temp);
         const sum = temp.reduce((sum, val) => sum + val,0);
-        console.log(sum);
         this.setState({purshasable: sum > 0});
 
     }
@@ -56,6 +54,10 @@ class BurgerBuilder extends Component{
         this.setState({ingredients: updatedIngredients, totalPrice: newPrice});
         this.updatePurshasable(updatedIngredients);
     }
+
+    closePurshaseHandler = ()=>{
+        this.setState({purshasing: false});
+    }
     render(){
         const disabledInfo = {...this.state.ingredients};
         for (const key in disabledInfo) {
@@ -65,7 +67,7 @@ class BurgerBuilder extends Component{
         }
         return (
             <Aux>
-                <Modal show={this.state.purshasing}>
+                <Modal show={this.state.purshasing} closeModal = {this.closePurshaseHandler}>
                     <OrderSummary ingredients ={this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients = {this.state.ingredients}/>
