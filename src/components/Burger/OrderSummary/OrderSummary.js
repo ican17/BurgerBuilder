@@ -16,9 +16,10 @@ function OrderSummary(props) {
             <ul>
                 {listIngredients}
             </ul>
+            <center><h3>Total price: {props.price.toFixed(2)} DZD</h3></center>
             <p>Would you like to continue and purshase it?</p>
             <Button btnType="Danger" clicked={props.purshaseCanceled}>CANCEL</Button>
-            <Button btnType="Success" clicked= {props.purshaseContinue}>CONTINUE</Button>
+            <Button btnType="Success" clicked={props.purshaseContinue}>CONTINUE</Button>
         </Aux>
     )
 }
