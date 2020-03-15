@@ -13,7 +13,9 @@ function BuildControls(props) {
             {BUILD_CONTROLS.map(ctr => <BuildControl
                 label={ctr.label}
                 key={ctr.label}
-                added={() => props.ingredientAdded(ctr.type)} />)}
+                added={() => props.ingredientAdded(ctr.type)}
+                removed={() => props.ingredientRemoved(ctr.type)}
+                disabled = {props.disabledInfo[ctr.type]}/>)}
         </div>
     )
 }
