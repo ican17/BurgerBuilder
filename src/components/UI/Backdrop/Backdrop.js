@@ -3,9 +3,11 @@ import classes from '../Backdrop/Backdrop.module.css';
 
 function Backdrop(props) {
     return (
-        <div className={classes.Backdrop} onClick={props.closeModal}>
+        props.show?
+        <div className={classes.Backdrop} onClick={props.closeModal} onClick={props.close}>
             
-        </div>
+        </div> : null
+        
     )
 }
 

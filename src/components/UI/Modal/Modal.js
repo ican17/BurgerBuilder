@@ -6,7 +6,7 @@ import classes from '../Modal/Modal.module.css';
 function Modal(props) {
     return (
         <Aux>
-            {props.show?<Backdrop closeModal = {props.closeModal}/>:null}
+            <Backdrop show={props.show} closeModal = {props.closeModal}/>
             <div
                 className={classes.Modal}
                 style={{
