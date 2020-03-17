@@ -3,8 +3,10 @@ import classes from '../DrawerToggle/DrawerToggle.module.css';
 
 function DrawerToggle(props) {
     return (
-        <div onClick={props.toggle}>
-            Menu
+        <div className={classes.DrawerToggle} onClick={props.toggle}>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     )
 }
