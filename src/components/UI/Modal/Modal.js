@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Aux from '../../../hoc/Auxilary';
+import Aux from '../../../hoc/Auxilary/Auxilary';
 import Backdrop from '../Backdrop/Backdrop';
 import classes from '../Modal/Modal.module.css';
 

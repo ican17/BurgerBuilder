@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import Aux from '../../hoc/Auxilary';
-import classes from './Layout/Layout.module.css';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Aux from '../Auxilary/Auxilary';
+import classes from '../Layout/Layout.module.css';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
 function Layout(props) {
     const [showSideDrawer,setShowSideDrawer] =  useState(false);
