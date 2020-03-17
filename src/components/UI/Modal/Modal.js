@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Aux from '../../../hoc/Auxilary';
 import Backdrop from '../Backdrop/Backdrop';
 import classes from '../Modal/Modal.module.css';
 
 function Modal(props) {
+    
     return (
         <Aux>
-            <Backdrop show={props.show} closeModal = {props.closeModal}/>
+            <Backdrop show={props.show} close = {props.closeModal}/>
             <div
                 className={classes.Modal}
                 style={{
@@ -21,4 +22,7 @@ function Modal(props) {
     )
 }
 
-export default Modal;
+function areEqual(prevProps, nextProps) {
+ return prevProps.show===nextProps.show? true: false;
+}
+export default React.memo(Modal, areEqual);

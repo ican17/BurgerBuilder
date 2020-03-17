@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Aux from '../../../hoc/Auxilary';
 import Button from '../../UI/Button/Button';
 
 function OrderSummary(props) {
+
     const listIngredients = [];
     for (const key in props.ingredients) {
         if (props.ingredients.hasOwnProperty(key)) {
