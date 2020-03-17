@@ -9,9 +9,12 @@ function Layout(props) {
     const sideDrawerCloseHandler = () => {
         setShowSideDrawer(false);
     }
+    const toggleSideDrawer = ()=>{
+        setShowSideDrawer(!showSideDrawer);
+    }
     return (
         <Aux>
-            <Toolbar/>
+            <Toolbar toggle={toggleSideDrawer}/>
             <SideDrawer open = {showSideDrawer} close ={sideDrawerCloseHandler}/>
             <main className={classes.main}>
                 {props.children}
