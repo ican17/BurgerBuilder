@@ -23,6 +23,6 @@ function Modal(props) {
 }
 
 function areEqual(prevProps, nextProps) {
- return prevProps.show===nextProps.show? true: false;
+ return (prevProps.show===nextProps.show && prevProps.children === nextProps.children)? true: false;
 }
 export default React.memo(Modal, areEqual);

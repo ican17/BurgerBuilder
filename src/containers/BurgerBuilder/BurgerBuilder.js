@@ -4,6 +4,8 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const INGREDIENTS_PRICES = {
     salad: 10,
@@ -20,7 +22,8 @@ class BurgerBuilder extends Component{
         },
         purshasable : false,
         purshasing : false,
-        totalPrice: 0
+        totalPrice: 0,
+        loading: false
     }
 
     purshaseHandler = ()=>{
@@ -60,7 +63,21 @@ class BurgerBuilder extends Component{
     }
 
     continuePurshaseHandler = () => {
-        alert('Continue !!');
+        this.setState({loading: true});
+        const order = {
+            ingredients: this.state.ingredients,
+            totalPrice: this.state.totalPrice,
+            customer:{
+                name: 'Kada',
+                country: 'Algeria'
+            },
+            deliveryMethod: 'fastest'
+        }
+        axios.post('/orders.json', order)
+        .then(res => {
+           this.setState({loading: false, purshasing:false})
+        })
+        .catch(err => this.setState({loading: false, purshasing:false}));
     }
     render(){
         const disabledInfo = {...this.state.ingredients};
@@ -69,14 +86,18 @@ class BurgerBuilder extends Component{
                 disabledInfo[key] = disabledInfo[key] === 0; 
             }
         }
+        let orderSummary = <OrderSummary 
+        ingredients ={this.state.ingredients}
+        purshaseCanceled={this.closePurshaseHandler}
+        purshaseContinue={this.continuePurshaseHandler}
+        price = {this.state.totalPrice}/>;
+        if(this.state.loading){
+            orderSummary = <Spinner/>;
+        }
         return (
             <Aux>
                 <Modal show={this.state.purshasing} closeModal = {this.closePurshaseHandler}>
-                    <OrderSummary 
-                    ingredients ={this.state.ingredients}
-                    purshaseCanceled={this.closePurshaseHandler}
-                    purshaseContinue={this.continuePurshaseHandler}
-                    price = {this.state.totalPrice}/>
+                    {orderSummary}   
                 </Modal>
                 <Burger ingredients = {this.state.ingredients}/>
                 <BuildControls
