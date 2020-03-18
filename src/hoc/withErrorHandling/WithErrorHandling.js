@@ -9,18 +9,21 @@ function withErrorHandling(WarrpedComponent, axios) {
         }
         componentWillMount(){
             
-            axios.interceptors.request.use(null, error => {
+            this.reqInterceptor = axios.interceptors.request.use(null, error => {
                 // we have got an error ==> do something
                 this.setState({error: null});
                 return Promise.reject(error);
             });
-            axios.interceptors.response.use(null, error => {
+            this.resInterceptor = axios.interceptors.response.use(null, error => {
                 // we have got an error ==> do something
                 this.setState({error: error});
                 return Promise.reject(error);
             });
         }
-
+        componentWillUnmount(){
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        }
         errorConfirmedHandler = ()=>{
             this.setState({error:null});
         }
