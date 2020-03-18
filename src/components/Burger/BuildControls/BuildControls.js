@@ -3,9 +3,9 @@ import BuildControl from './BuildControl/BuildControl';
 import classes from '../BuildControls/BuildControls.module.css';
 
 const BUILD_CONTROLS = [
-    { label: "Salad", type: "salad" },
-    { label: "Meat", type: "meat" },
     { label: "Cheese", type: "cheese" },
+    { label: "Meat", type: "meat" },
+    { label: "Salad", type: "salad" },
 ]
 function BuildControls(props) {
     return (
