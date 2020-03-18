@@ -19,13 +19,15 @@ class BurgerBuilder extends Component {
         purshasable: false,
         purshasing: false,
         totalPrice: 0,
-        loading: false
+        loading: false,
+        error: false
     }
     componentDidMount() {
-        const ingredients = axios.get('/ingredients.jsonjj')
+        const ingredients = axios.get('/ingredients.json')
             .then(res => {
                 this.setState({ ingredients: res.data });
-            });
+            })
+            .catch(err => this.setState({error:true}));
 
     }
     purshaseHandler = () => {
@@ -113,7 +115,7 @@ class BurgerBuilder extends Component {
                             order={this.purshaseHandler} />
                     </Aux>
                     :
-                    <Spinner />
+                    this.state.error?<p>Ingredients cannot be loaded</p> : <Spinner />
                 }
             </Aux>
         )
