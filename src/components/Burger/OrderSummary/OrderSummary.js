@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Aux from '../../../hoc/Auxilary/Auxilary';
 import Button from '../../UI/Button/Button';
 
