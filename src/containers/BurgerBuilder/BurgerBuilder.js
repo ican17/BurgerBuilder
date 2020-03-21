@@ -67,7 +67,7 @@ class BurgerBuilder extends Component {
     }
 
     continuePurshaseHandler = () => {
-        this.setState({ loading: true });
+        /* this.setState({ loading: true });
         const order = {
             ingredients: this.state.ingredients,
             totalPrice: this.state.totalPrice,
@@ -81,7 +81,8 @@ class BurgerBuilder extends Component {
             .then(res => {
                 this.setState({ loading: false, purshasing: false })
             })
-            .catch(err => this.setState({ loading: false, purshasing: false }));
+            .catch(err => this.setState({ loading: false, purshasing: false })); */
+            this.props.history.push('/checkout');
     }
     render() {
         const disabledInfo = { ...this.state.ingredients };
