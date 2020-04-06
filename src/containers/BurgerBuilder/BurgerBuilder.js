@@ -27,7 +27,16 @@ class BurgerBuilder extends Component {
             .then(res => {
                 this.setState({ ingredients: res.data });
             })
-            .catch(err => this.setState({error:true}));
+            .catch(err => {
+                //this.setState({error:true});
+                this.setState({ingredients: {
+                    cheese:0,
+                    meat:0,
+                    salad: 0,
+                },
+                error: true
+            })
+            });
 
     }
     purshaseHandler = () => {
@@ -67,21 +76,7 @@ class BurgerBuilder extends Component {
     }
 
     continuePurshaseHandler = () => {
-        /* this.setState({ loading: true });
-        const order = {
-            ingredients: this.state.ingredients,
-            totalPrice: this.state.totalPrice,
-            customer: {
-                name: 'Kada',
-                country: 'Algeria'
-            },
-            deliveryMethod: 'fastest'
-        }
-        axios.post('/orders.json', order)
-            .then(res => {
-                this.setState({ loading: false, purshasing: false })
-            })
-            .catch(err => this.setState({ loading: false, purshasing: false })); */
+     
             const queryParams = [];
             for (const key in this.state.ingredients) {
                 if (this.state.ingredients.hasOwnProperty(key)) {
@@ -89,6 +84,7 @@ class BurgerBuilder extends Component {
                     
                 }
             }
+            queryParams.push('price=' + encodeURIComponent(this.state.totalPrice)) ;
 
             const queryString = queryParams.join('&');
             this.props.history.push({
@@ -117,6 +113,7 @@ class BurgerBuilder extends Component {
                 </Modal>
                 {this.state.ingredients !== null ?
                     <Aux>
+                        {this.state.error?<center><p>Ingredients Were loaded Internaly</p></center> :null}
                         <Burger ingredients={this.state.ingredients} />
                         <BuildControls
                             ingredientAdded={this.addIngredientHandler}
@@ -127,7 +124,7 @@ class BurgerBuilder extends Component {
                             order={this.purshaseHandler} />
                     </Aux>
                     :
-                    this.state.error?<p>Ingredients cannot be loaded</p> : <Spinner />
+                    <Spinner />
                 }
             </Aux>
         )
