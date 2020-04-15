@@ -50,11 +50,7 @@ function reducer(state = initialState, action) {
             }
         case actionTypes.RESET:
             return {
-                ingredients: {
-                    cheese: 0,
-                    meat: 0,
-                    salad: 0,
-                },
+                ingredients:{},
                 totalPrice: 0,
 
             }
