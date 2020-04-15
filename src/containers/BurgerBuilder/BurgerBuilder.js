@@ -8,31 +8,15 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandling from '../../hoc/withErrorHandling/WithErrorHandling';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as burgerBuilderActions from '../../store/actions/index';
 
 class BurgerBuilder extends Component {
     state = {
-        purshasable: false,
         purshasing: false,
-        loading: false,
-        error: false
+    
     }
     componentDidMount() {
-        /*  axios.get('/ingredients.json')
-            .then(res => {
-                this.setState({ ingredients: res.data });
-            })
-            .catch(err => {
-                //this.setState({error:true});
-                this.setState({ingredients: {
-                    cheese:0,
-                    meat:0,
-                    salad: 0,
-                },
-                error: true
-            })
-            });
- */
+        this.props.onIngredientInit()
     }
     purshaseHandler = () => {
         this.setState({ purshasing: true });
@@ -71,9 +55,7 @@ class BurgerBuilder extends Component {
             purshaseCanceled={this.closePurshaseHandler}
             purshaseContinue={this.continuePurshaseHandler}
             price={this.props.price} />;
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
-        }
+       
         return (
             <Aux>
                 <Modal show={this.state.purshasing} closeModal={this.closePurshaseHandler}>
@@ -81,7 +63,7 @@ class BurgerBuilder extends Component {
                 </Modal>
                 {this.props.ings !== null ?
                     <Aux>
-                        {this.state.error ? <center><p>Ingredients Were loaded Internaly</p></center> : null}
+                        {this.props.error ? <center><p>Ingredients Were loaded Internaly</p></center> : null}
                         <Burger ingredients={this.props.ings} />
                         <BuildControls
                             ingredientAdded={this.props.onIngredientAdd}
@@ -102,14 +84,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error : state.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdd: (type) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingType: type }),
-        onIngredientRemove: (type) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingType: type }),
+        onIngredientAdd: (type) => dispatch(burgerBuilderActions.addIngredient(type)),
+        onIngredientRemove: (type) => dispatch(burgerBuilderActions.removeIngredient(type)),
+        onIngredientInit : () => dispatch(burgerBuilderActions.initIngredients())
     }
 }
 

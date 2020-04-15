@@ -6,7 +6,7 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Aux from '../../../hoc/Auxilary/Auxilary';
 import InputElement from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
-import * as actionTypes from '../../../store/actions';
+import * as burgerBuilderActions from '../../../store/actions/index';
 
 
 class ContactData extends Component {
@@ -164,7 +164,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        reset : () => dispatch({type:actionTypes.RESET})
+        reset : () => dispatch(burgerBuilderActions.reset())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
