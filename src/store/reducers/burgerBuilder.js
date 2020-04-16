@@ -41,6 +41,7 @@ function reducer(state = initialState, action) {
                     meat: action.ings.meat,
                     cheese: action.ings.cheese
                 },
+                totalPrice : 0,
                 error: false
             }
         case actionTypes.SET_INGREDIENTS_FAILED:
@@ -48,13 +49,6 @@ function reducer(state = initialState, action) {
                 ...state,
                 error: true,
             }
-        case actionTypes.RESET:
-            return {
-                ingredients:{},
-                totalPrice: 0,
-
-            }
-
         default:
             return state;
     }

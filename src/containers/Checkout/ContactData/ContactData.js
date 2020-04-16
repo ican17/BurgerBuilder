@@ -6,7 +6,8 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Aux from '../../../hoc/Auxilary/Auxilary';
 import InputElement from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
-import * as burgerBuilderActions from '../../../store/actions/index';
+import * as actions from '../../../store/actions/index';
+import withErrorHandling from '../../../hoc/withErrorHandling/WithErrorHandling';
 
 
 class ContactData extends Component {
@@ -49,13 +50,13 @@ class ContactData extends Component {
                     ],
                 },
                 validation:{},
-                value: '',
+                value: 'fastest',
                 valid: true,
             },
         },
         formIsValid : false,
-        loading: false
     }
+
     checkValidity(value, rules){
         if(!rules){
             return true;
@@ -76,9 +77,9 @@ class ContactData extends Component {
 
         return isValid;
     }
+
     orderHandler = (e) => {
         e.preventDefault();
-        this.setState({ loading: true });
         const formData = {};
         for (const key in this.state.orderForm) {
             if (this.state.orderForm.hasOwnProperty(key)) {
@@ -91,13 +92,9 @@ class ContactData extends Component {
             totalPrice: this.props.price,
             orderData: formData
         }
-        axios.post('/orders.json', order)
-            .then(res => {
-                this.setState({ loading: false });
-                this.props.reset();
-                this.props.history.push('/');
-            })
-            .catch(err => this.setState({ loading: false }));
+
+        this.props.onPurshaseBurger(order);
+        
     }
 
     inputChangedHandler = (e, inputId)=>{
@@ -144,7 +141,7 @@ class ContactData extends Component {
                 </form>
             </Aux>
         );
-        if (this.state.loading) {
+        if (this.props.loading) {
             form = <Spinner />;
         }
         return (
@@ -157,14 +154,16 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price : state.totalPrice,
+        ings: state.burgerB.ingredients,
+        price : state.burgerB.totalPrice,
+        loading: state.order.loading
+
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        reset : () => dispatch(burgerBuilderActions.reset())
+        onPurshaseBurger : (orderData) => dispatch(actions.purshaseBurger(orderData)),
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandling(ContactData, axios));

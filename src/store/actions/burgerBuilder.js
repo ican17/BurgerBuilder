@@ -14,11 +14,7 @@ export const removeIngredient = (name) => {
         ingType: name,
     }
 }
-export const reset = () => {
-    return {
-        type: actionTypes.RESET,
-    }
-}
+
 
 const setIngredients = ingredients => {
     return {
