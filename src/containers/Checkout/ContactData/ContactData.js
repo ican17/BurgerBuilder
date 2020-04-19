@@ -93,7 +93,7 @@ class ContactData extends Component {
             orderData: formData
         }
 
-        this.props.onPurshaseBurger(order);
+        this.props.onPurshaseBurger(order, this.props.token);
         
     }
 
@@ -156,14 +156,15 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerB.ingredients,
         price : state.burgerB.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading, 
+        token : state.auth.token
 
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onPurshaseBurger : (orderData) => dispatch(actions.purshaseBurger(orderData)),
+        onPurshaseBurger : (orderData, token) => dispatch(actions.purshaseBurger(orderData, token)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandling(ContactData, axios));
