@@ -19,7 +19,21 @@ const authFail = (error) => {
         error : error
     }
 }
+const logout = () => {
+    return{
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
 
+// async call logout after token expires
+const logoutOnTokenExpires = (timer) => {
+    return dispatch => {
+        setTimeout(()=>{
+            dispatch(logout());
+        }, timer * 1000);
+    }
+    
+}
 // async call on firbase authentication system
 export const auth = (email, password, isSignup) => {
     return dispatch => {
@@ -35,9 +49,9 @@ export const auth = (email, password, isSignup) => {
         })
         .then(res =>{
             dispatch(authSuccess(res.data.idToken, res.data.localId));
+            dispatch(logoutOnTokenExpires(res.data.expiresIn));
         })
         .catch(error => {
-            console.log(error)
             dispatch(authFail(error.response.data.error))
         });
     }

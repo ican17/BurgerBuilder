@@ -21,11 +21,21 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error : action.error
             }
+        case actionTypes.AUTH_LOGOUT:
+            return {
+                ...state,
+                loading: false,
+                error : null,
+                token : null,
+                userId : null,
+
+            }
         case actionTypes.AUTH_SUCCESS:
             return {
                 ...state,
                 token : action.idToken,
                 userId : action.localId,
+                error : null,
                 loading: false,
             }
     
