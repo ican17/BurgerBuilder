@@ -77,10 +77,16 @@ class Auth extends Component {
                 });
             }
         }
+
+        let errorMsg;
+        if (this.props.error) {
+            errorMsg = (<p>{this.props.error.message}</p>)
+        }
         let form = <div className={classes.Auth}><Spinner /></div>;
         if (!this.props.loading) {
             form = (
                 <div className={classes.Auth}>
+                    {errorMsg}
                     <h4>Enter you crendentials bellow</h4>
                     <form onSubmit={this.submitHandler}>
                         {controls.map(val => {
@@ -103,7 +109,8 @@ class Auth extends Component {
 
 const mapPropsToState = state => {
     return {
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        error: state.auth.error
     }
 }
 const mapDispatchToState = dispatch => {
