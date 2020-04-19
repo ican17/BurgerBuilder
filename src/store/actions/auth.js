@@ -6,10 +6,11 @@ const authStart = () => {
         type: actionTypes.AUTH_START
     }
 }
-const authSuccess = (authData) => {
+const authSuccess = (idToken, localId) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        authData : authData
+        idToken : idToken,
+        localId: localId
     }
 }
 const authFail = (error) => {
@@ -33,7 +34,7 @@ export const auth = (email, password, isSignup) => {
             returnSecureToken : true
         })
         .then(res =>{
-            dispatch(authSuccess(res.data));
+            dispatch(authSuccess(res.data.idToken, res.data.localId));
         })
         .catch(error => {
             console.log(error)

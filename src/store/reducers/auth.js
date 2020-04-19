@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     loading : false,
-    authData : null,
+    token : null,
+    userId : null,
+    error: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +23,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.AUTH_SUCCESS:
             return {
                 ...state,
-                authData : action.authData,
+                token : action.idToken,
+                userId : action.localId,
                 loading: false,
             }
     
