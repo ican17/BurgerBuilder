@@ -14,7 +14,7 @@ function Toolbar(props) {
                 </div>
 
                 <nav className={classes.MobileOnly} >
-                    <NavigationItems />
+                    <NavigationItems isAuth = {props.isAuth}/>
                 </nav>
             </header>
         </div>

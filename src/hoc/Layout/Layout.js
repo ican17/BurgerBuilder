@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import Aux from '../Auxilary/Auxilary';
 import classes from '../Layout/Layout.module.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
@@ -14,8 +15,8 @@ function Layout(props) {
     }
     return (
         <Aux>
-            <Toolbar toggle={toggleSideDrawer}/>
-            <SideDrawer open = {showSideDrawer} close ={sideDrawerCloseHandler}/>
+            <Toolbar isAuth = {props.isAuth} toggle={toggleSideDrawer}/>
+            <SideDrawer isAuth = {props.isAuth}  open = {showSideDrawer} close ={sideDrawerCloseHandler}/>
             <main className={classes.main}>
                 {props.children}
             </main>
@@ -23,5 +24,9 @@ function Layout(props) {
 
     );
 }
-
-export default Layout;
+const mapPropsToState = state =>{
+    return {
+        isAuth : state.auth.token != null
+    }
+}
+export default connect(mapPropsToState)(Layout);
