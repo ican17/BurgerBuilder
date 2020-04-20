@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import InputElement from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import * as utilities from '../../shared/utilities';
 import classes from './Auth.module.css';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
+
 
 class Auth extends Component {
     state = {
@@ -68,6 +70,10 @@ class Auth extends Component {
     }
 
     render() {
+        let redirect = null;
+        if(this.props.isAuth){
+            redirect = <Redirect to="/"/>
+        }
         const controls = [];
         for (const key in this.state.controls) {
             if (this.state.controls.hasOwnProperty(key)) {
@@ -86,6 +92,7 @@ class Auth extends Component {
         if (!this.props.loading) {
             form = (
                 <div className={classes.Auth}>
+                    {redirect}
                     {errorMsg}
                     <h4>Enter you crendentials bellow</h4>
                     <form onSubmit={this.submitHandler}>
@@ -110,7 +117,8 @@ class Auth extends Component {
 const mapPropsToState = state => {
     return {
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuth : state.auth.token != null
     }
 }
 const mapDispatchToState = dispatch => {

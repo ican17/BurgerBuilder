@@ -20,7 +20,7 @@ function BuildControls(props) {
                 <button 
                 className={classes.OrderButton}
                  disabled = {!props.purshasable}
-                 onClick={props.order}>Order Now</button>
+            onClick={props.order}>{props.isAuth? "Order Now" : "Sign up to order"}</button>
         </div>
     )
 }

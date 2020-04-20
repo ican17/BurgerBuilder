@@ -19,7 +19,12 @@ class BurgerBuilder extends Component {
         this.props.onIngredientInit()
     }
     purshaseHandler = () => {
-        this.setState({ purshasing: true });
+        if (this.props.isAuth) {
+            this.setState({ purshasing: true });
+        }else{
+            this.props.history.push({pathname: '/auth' });
+        }
+        
     }
     updatePurshasable(ingredients) {
         const temp = Object.keys(ingredients)
@@ -71,7 +76,8 @@ class BurgerBuilder extends Component {
                             disabledInfo={disabledInfo}
                             price={this.props.price}
                             purshasable={this.updatePurshasable(this.props.ings)}
-                            order={this.purshaseHandler} />
+                            order={this.purshaseHandler}
+                            isAuth = {this.props.isAuth} />
                     </Aux>
                     :
                     <Spinner />
@@ -85,7 +91,8 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerB.ingredients,
         price: state.burgerB.totalPrice,
-        error : state.burgerB.error
+        error : state.burgerB.error,
+        isAuth : state.auth.token != null,
     }
 }
 
